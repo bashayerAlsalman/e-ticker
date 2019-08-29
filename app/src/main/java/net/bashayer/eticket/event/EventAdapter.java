@@ -9,17 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.bashayer.eticket.R;
-import net.bashayer.eticket.event.model.Event;
+import net.bashayer.eticket.network.model.EventModel;
 
 import java.util.List;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
 
-    public List<Event> events;
+    public List<EventModel> events;
     public Context context;
     public EventCallback callback;
 
-    public EventAdapter(Context context, EventCallback callback, List<Event> eventList) {
+    public EventAdapter(Context context, EventCallback callback, List<EventModel> eventList) {
         this.context = context;
         this.callback = callback;
         this.events = eventList;
@@ -39,6 +39,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
         return events.size();
+    }
+
+    public void updateEvents(List<EventModel> events) {
+        this.events.clear();
+        this.events.addAll(events);
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

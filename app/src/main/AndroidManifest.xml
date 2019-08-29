@@ -3,6 +3,12 @@
     xmlns:dist="http://schemas.android.com/apk/distribution"
     package="net.bashayer.eticket">
 
+    <!-- if you want to load images from the internet -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- if you want to load images from a file OR from the internet -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <dist:module dist:instant="true" />
 
     <application
@@ -12,7 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".payment.PaymentAactivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
