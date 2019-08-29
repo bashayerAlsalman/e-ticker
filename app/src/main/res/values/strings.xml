@@ -3,4 +3,6 @@
     <string name="eventName">Event name</string>
     <string name="eventType">Event type</string>
     <string name="eventCity">Event city</string>
+    <string name="book">Book</string>
+    <string name="eventDate">Event date</string>
 </resources>

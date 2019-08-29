@@ -1,9 +1,8 @@
 package net.bashayer.eticket.event;
 
-import net.bashayer.eticket.event.model.Event;
 
-import java.util.List;
+import net.bashayer.eticket.network.model.EventModel;
 
 public interface EventCallback {
-    void onEventsLoaded(List<Event> events);
+    void onEventClicked(EventModel event);
 }
