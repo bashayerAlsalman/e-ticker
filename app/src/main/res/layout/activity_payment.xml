@@ -24,7 +24,7 @@
             android:id="@+id/editTextAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center" />
+            android:inputType="" android:textAlignment="center" />
 
         <Button
             android:id="@+id/buttonPay"
