@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:background="@color/secondaryColor">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".MainActivity">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/attendeeQRCodeImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@color/primaryDarkColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/attendeeTicket"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/attendeeTicket"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/shareButton"
+            app:layout_constraintStart_toEndOf="@+id/attendeeQRCodeImage"
+            app:layout_constraintTop_toTopOf="@+id/attendeeQRCodeImage" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/shareButton"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/ic_share_black_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/attendeeQRCodeImage" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/eventType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/eventType"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/attendeeQRCodeImage"
+            app:layout_constraintTop_toBottomOf="@+id/attendeeTicket" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/locationPin"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/ic_location_on_black_24dp"
+            app:layout_constraintBottom_toBottomOf="@id/eventCity"
+            app:layout_constraintStart_toEndOf="@id/attendeeQRCodeImage"
+            app:layout_constraintTop_toTopOf="@id/eventCity" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/eventCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/eventCity"
+            app:layout_constraintBottom_toBottomOf="@+id/attendeeQRCodeImage"
+            app:layout_constraintStart_toEndOf="@+id/locationPin" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/eventDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:text="@string/eventDate"
+            android:textColor="@color/primaryDarkColor"
+            app:layout_constraintBottom_toBottomOf="@+id/eventCity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/eventCity"
+            app:layout_constraintTop_toTopOf="@+id/eventCity" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
+
+

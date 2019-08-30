@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.google.android.gms.strict-version-matcher-plugin'
 
 android {
     compileSdkVersion 28
@@ -9,6 +12,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -58,4 +62,14 @@ dependencies {
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
     implementation "com.github.firdausmaulan:GlideSlider:$glide_slider_version"
 
+    implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.3'
+
+    implementation 'me.dm7.barcodescanner:zxing:1.9.8'
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.google.android.material:material:1.0.0"
+
+}
+repositories {
+    mavenCentral()
 }

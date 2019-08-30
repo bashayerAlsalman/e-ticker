@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -28,8 +29,6 @@ public class EventListActivity extends AppCompatActivity implements EventCallbac
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-
-
     public EventAdapter adapter;
     public static String EVENT_KEY = "eventKey";
 
@@ -38,6 +37,7 @@ public class EventListActivity extends AppCompatActivity implements EventCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
 
+        ButterKnife.bind(this);
         initAdapter();
         //todo loadData();
         loadMockData();
