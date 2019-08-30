@@ -26,7 +26,7 @@ class ScannedActivity : BaseActivity() {
         if (intent.getSerializableExtra(SCANNED_STRING) == null) throw RuntimeException("No encrypted String found in intent")
         val decryptedString = EncryptionHelper.getInstance().getDecryptionString(intent.getStringExtra(SCANNED_STRING))
         val userObject = Gson().fromJson(decryptedString, EventAttendee::class.java)
-        scannedFullNameTextView.text = userObject.eventId
-        scannedAgeTextView.text = userObject.eventAttendeeName
+    //   scannedFullNameTextView.text = userObject.eventId
+       // scannedAgeTextView.text = userObject.eventAttendeeName
     }
 }

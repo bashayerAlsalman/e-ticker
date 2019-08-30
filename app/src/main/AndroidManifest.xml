@@ -18,7 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".qr.FirstActivity">
+        <activity android:name=".tickets.TicketListActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,14 +26,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".event.EventDetailsActivity" />
+        <activity android:name=".tickets.BookActivity" />
         <activity android:name=".event.EventListActivity" />
         <activity android:name=".qr.GenerateQrCodeActivity" />
         <activity android:name=".qr.scan.ScanQrCodeActivity" />
         <activity android:name=".qr.scan.ScannedActivity" />
 
-        <activity android:name=".payment.ConfirmationActivity"/>22223
+        <activity android:name=".payment.ConfirmationActivity"/>
     </application>
 
 

@@ -37,7 +37,7 @@ class GenerateQrCodeActivity : BaseActivity(), TicketCallback {
                 EventAttendee("1234", "Nora Alyahya", "Elm hackathon in suhail", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam", "Riyadh", Date()),
                 EventAttendee("1234", "Nora Alyahya", "Elm hackathon in suhail", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam", "Riyadh", Date())))
 
-        //todo show loader and message getting the tickets
+        //todo show loader and message getting the ticketModels
 
         attendees.attendees.forEach {
             val EventAttendee = EventAttendee(it.eventName, it.eventAttendeeName, it.eventDate)

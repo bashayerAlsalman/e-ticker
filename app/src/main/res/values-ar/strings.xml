@@ -14,5 +14,9 @@
     <string name="first_name">Firm name</string>
     <string name="age">Age</string>
     <string name="attendeeTicket">Attendee ticket</string>
+    <string name="attendeeName">Attendee ticket</string>
+    <string name="ticketType">ticket type</string>
+    <string name="ticketPrice">ticket price</string>
+    <string name="attendeeEmail">Attendee Email</string>
     <string name="share_using">Share using</string>
 </resources>
