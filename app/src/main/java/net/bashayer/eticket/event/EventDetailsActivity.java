@@ -14,6 +14,7 @@ import net.bashayer.eticket.common.BaseActivity;
 import net.bashayer.eticket.network.model.EventModel;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class EventDetailsActivity extends BaseActivity {
 
@@ -28,6 +29,7 @@ public class EventDetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
 
+        ButterKnife.bind(this);
         eventModel = (EventModel) getIntent().getSerializableExtra(EventListActivity.EVENT_KEY);
         initImageSlider();
         initGoogleMap();
