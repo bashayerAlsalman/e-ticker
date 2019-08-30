@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import java.math.BigDecimal;
 
 import com.paypal.android.sdk.payments.PayPalConfiguration;
@@ -20,16 +21,21 @@ import net.bashayer.eticket.R;
 import org.json.JSONException;
 
 import androidx.appcompat.app.AppCompatActivity;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class PaymentAactivity extends AppCompatActivity implements View.OnClickListener {
 
     //The views
-    private Button buttonPay;
-    private EditText editTextAmount;
+    @BindView(R.id.buttonPay)
+    Button buttonPay;
+
+    @BindView(R.id.editTextAmount)
+    EditText editTextAmount;
 
     //Payment Amount
     private String paymentAmount;
-
 
 
     //Paypal intent request code to track onActivityResult method
@@ -40,17 +46,16 @@ public class PaymentAactivity extends AppCompatActivity implements View.OnClickL
     private static PayPalConfiguration config = new PayPalConfiguration()
             // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
             // or live (ENVIRONMENT_PRODUCTION)
-            .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+            .environment(PayPalConfiguration.ENVIRONMENT_PRODUCTION)
             .clientId(PayPalConfig.PAYPAL_CLIENT_ID);
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_payment);
 
-        buttonPay = (Button) findViewById(R.id.buttonPay);
-        editTextAmount = (EditText) findViewById(R.id.editTextAmount);
+        ButterKnife.bind(this);
 
         buttonPay.setOnClickListener(this);
 
@@ -62,12 +67,12 @@ public class PaymentAactivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-
     @Override
     public void onClick(View view) {
         getPayment();
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //If the result is from paypal
@@ -103,13 +108,12 @@ public class PaymentAactivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-
     private void getPayment() {
         //Getting the amount from editText
         paymentAmount = editTextAmount.getText().toString();
 
         //Creating a paypalpayment
-        PayPalPayment payment = new PayPalPayment(new BigDecimal(String.valueOf(paymentAmount)), "USD", "Simplified Coding Fee",
+        PayPalPayment payment = new PayPalPayment(new BigDecimal(paymentAmount), "USD", "E-Ticketing",
                 PayPalPayment.PAYMENT_INTENT_SALE);
 
         //Creating Paypal Payment activity intent
@@ -125,10 +129,6 @@ public class PaymentAactivity extends AppCompatActivity implements View.OnClickL
         //the request code will be used on the method onActivityResult
         startActivityForResult(intent, PAYPAL_REQUEST_CODE);
     }
-
-
-
-
 
 
 }
