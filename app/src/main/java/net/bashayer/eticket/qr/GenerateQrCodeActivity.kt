@@ -40,7 +40,7 @@ class GenerateQrCodeActivity : BaseActivity(), TicketCallback {
         //todo show loader and message getting the tickets
 
         attendees.attendees.forEach {
-            val EventAttendee = EventAttendee(it.eventName, it.eventAttendeeName, it.eventDate)
+            val EventAttendee = EventAttendee(it.eventName, it.eventAttendeeName)
             val serializeString = Gson().toJson(EventAttendee)
             val encryptedString = EncryptionHelper.getInstance().encryptionString(serializeString).encryptMsg()
             val bitmap = QRCodeHelper.newInstance(this).setContent(encryptedString).setErrorCorrectionLevel(ErrorCorrectionLevel.Q).setMargin(2).qrcOde

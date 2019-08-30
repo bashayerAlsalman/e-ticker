@@ -11,10 +11,9 @@ public class EventAttendee {
     public String city;
     public Date eventDate;
 
-    public EventAttendee(String eventName, String eventAttendeeName, Date eventDate) {
+    public EventAttendee(String eventName, String eventAttendeeName) {
         this.eventName = eventName;
         this.eventAttendeeName = eventAttendeeName;
-        this.eventDate = eventDate;
     }
 
     public EventAttendee(String eventId, String eventAttendeeName, String eventName, String eventDescription, String city, Date eventDate) {

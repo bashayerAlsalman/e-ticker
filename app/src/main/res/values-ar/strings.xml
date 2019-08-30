@@ -10,9 +10,12 @@
     <string name="scan_qr_code">Scan QR code</string>
     <string name="generate_qr_code">Generate QR code</string>
     <string name="app_needs_your_camera_permission_in_order_to_scan_qr_code">Need camera permsisson</string>
-    <string name="scanned_qr_code_result">Scan activity result</string>
+    <string name="scanned_qr_code_result">Scan result</string>
     <string name="first_name">Firm name</string>
     <string name="age">Age</string>
     <string name="attendeeTicket">Attendee ticket</string>
     <string name="share_using">Share using</string>
+    <string name="attendeeName">Attendee name</string>
+    <string name="attendeeVerified">Attendee verified</string>
+    <string name="evens">Events</string>
 </resources>

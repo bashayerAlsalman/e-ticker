@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,8 +30,11 @@ public class EventListActivity extends AppCompatActivity implements EventCallbac
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.search)
+    SearchView search;
     public EventAdapter adapter;
     public static String EVENT_KEY = "eventKey";
+    private List<EventModel> eventModels;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,13 +42,32 @@ public class EventListActivity extends AppCompatActivity implements EventCallbac
         setContentView(R.layout.activity_event_list);
 
         ButterKnife.bind(this);
+
+        getSupportActionBar().setTitle(R.string.evens);
         initAdapter();
         //todo loadData();
         loadMockData();
+        initSearch();
+    }
+
+    private void initSearch() {
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+        });
     }
 
     private void loadMockData() {
-        List<EventModel> eventModels = new ArrayList<>();
+        eventModels = new ArrayList<>();
         EventModel eventModel = new EventModel("");
 
         eventModels.add(eventModel);
