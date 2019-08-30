@@ -6,9 +6,10 @@
     android:background="@color/colorPrimary"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".qr.FirstActivity">
+    tools:context=".qr.scan.FirstActivity">
 
     <Button
+        android:visibility="gone"
         android:id="@+id/firstActivityGenerateButton"
         style="?android:buttonBarButtonStyle"
         android:layout_width="match_parent"

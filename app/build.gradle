@@ -31,9 +31,11 @@ android {
     flavorDimensions 'default'
     productFlavors {
         attendee {
+            applicationId "net.bashayer.eticket.attendee"
             dimension = 'default'
         }
         eventOrganizer {
+            applicationId "net.bashayer.eticket.eventOrganizer"
             dimension = 'default'
         }
     }

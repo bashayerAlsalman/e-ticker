@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import net.bashayer.eticket.R;
 import net.bashayer.eticket.network.EventService;
+import net.bashayer.eticket.network.UnsafeOkHttpClient;
 import net.bashayer.eticket.network.model.EventModel;
+import net.bashayer.eticket.network.model.NewEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -45,8 +48,8 @@ public class EventListActivity extends AppCompatActivity implements EventCallbac
 
         getSupportActionBar().setTitle(R.string.evens);
         initAdapter();
-        //todo loadData();
-        loadMockData();
+        loadData();
+        //loadMockData();
         initSearch();
     }
 
@@ -67,27 +70,27 @@ public class EventListActivity extends AppCompatActivity implements EventCallbac
     }
 
     private void loadMockData() {
-        eventModels = new ArrayList<>();
-        EventModel eventModel = new EventModel("");
-
-        eventModels.add(eventModel);
-        eventModels.add(eventModel);
-        eventModels.add(eventModel);
-        eventModels.add(eventModel);
-        eventModels.add(eventModel);
-
-        adapter.updateEvents(eventModels);
+//        eventModels = new ArrayList<>();
+//        EventModel eventModel = new EventModel();
+//
+//        eventModels.add(eventModel);
+//        eventModels.add(eventModel);
+//        eventModels.add(eventModel);
+//        eventModels.add(eventModel);
+//        eventModels.add(eventModel);
+//
+//        adapter.updateEvents(eventModels);
     }
 
     private void initAdapter() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        adapter = new EventAdapter(this, this, new ArrayList<EventModel>());
+        adapter = new EventAdapter(this, this, new ArrayList<NewEvent>());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
 
     @Override
-    public void onEventClicked(EventModel event) {
+    public void onEventClicked(NewEvent event) {
         Intent intent = new Intent(this, EventDetailsActivity.class);
         intent.putExtra(EVENT_KEY, event);
 
@@ -95,37 +98,39 @@ public class EventListActivity extends AppCompatActivity implements EventCallbac
     }
 
     private void loadData() {
+        OkHttpClient okHttpClient = UnsafeOkHttpClient.getUnsafeOkHttpClient();
+
+        //https://e-ticketing-sandbox.mxapps.io/rest/event/v1/event
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://www.mocky.io/")
+                .baseUrl("https://e-ticketing-sandbox.mxapps.io/rest/event/v1/")
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
         EventService service = retrofit.create(EventService.class);
 
-        service.getEvents()
+        service.getEvents("application/json")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<EventModel>>() {
+                .subscribe(new Observer<List<NewEvent>>() {
 
                     @Override
                     public void onSubscribe(Disposable d) {
-
                     }
 
                     @Override
-                    public void onNext(List<EventModel> value) {
-                        adapter.updateEvents(value);
+                    public void onNext(List<NewEvent> value) {
+                         adapter.updateEvents(value);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        //todo
+                        e.printStackTrace();
                     }
 
                     @Override
                     public void onComplete() {
-                        //todo
                     }
                 });
 
