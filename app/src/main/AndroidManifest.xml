@@ -19,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".qr.FirstActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,6 +33,8 @@
         <activity android:name=".qr.scan.ScanQrCodeActivity" />
         <activity android:name=".qr.scan.ScannedActivity" />
 
+        <activity android:name=".payment.ConfirmationActivity"/>22223
     </application>
+
 
 </manifest>
