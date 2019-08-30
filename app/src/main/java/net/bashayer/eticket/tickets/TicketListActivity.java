@@ -1,7 +1,12 @@
 package net.bashayer.eticket.tickets;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
+
+import com.google.android.material.button.MaterialButton;
 
 import net.bashayer.eticket.R;
 import net.bashayer.eticket.event.EventAdapter;
@@ -16,6 +21,7 @@ import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -28,10 +34,12 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class TicketListActivity extends AppCompatActivity implements TicketCallback {
+public class TicketListActivity extends AppCompatActivity implements View.OnClickListener {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView((R.id.addTickets))
+    MaterialButton addTickets;
     public ticketAdapter adapter;
     public static String TICKET_KEY = "ticketKey";
 
@@ -44,24 +52,26 @@ public class TicketListActivity extends AppCompatActivity implements TicketCallb
         initAdapter();
         //todo loadData();
         loadMockData();
+        addTickets.setOnClickListener(this);
     }
 
     private void loadMockData() {
         List<ticketModel> ticketModels = new ArrayList<>();
-        ticketModel ticketModel = new ticketModel("eee", 100,100);
+        ticketModel ticketModel = new ticketModel("VIP", 100,100);
+        ticketModel ticketModel2 = new ticketModel("Platinum", 50,100);
+        ticketModel ticketModel3 = new ticketModel("Gold", 40,100);
 
         ticketModels.add(ticketModel);
-        ticketModels.add(ticketModel);
-        ticketModels.add(ticketModel);
-        ticketModels.add(ticketModel);
-        ticketModels.add(ticketModel);
+        ticketModels.add(ticketModel2);
+        ticketModels.add(ticketModel3);
+
 
         adapter.updateTickets(ticketModels);
     }
 
     private void initAdapter() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        adapter = new ticketAdapter(this, this, new ArrayList<ticketModel>());
+        adapter = new ticketAdapter(this , new ArrayList<ticketModel>());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
@@ -110,12 +120,23 @@ public class TicketListActivity extends AppCompatActivity implements TicketCallb
     }
 
 
-    @Override
-    public void onTicketClicked(ticketModel ticket) {
-        Intent intent = new Intent(this, BookActivity.class);
-        intent.putExtra(TICKET_KEY, ticket);
+//    @Override
+//    public void onTicketClicked(ticketModel ticket , int number ) {
+//
+//        System.out.println("---------"+number);
+//
+//        Intent intent = new Intent(this, BookActivity.class);
+//        intent.putExtra(TICKET_KEY, ticket);
+//
+//        startActivity(intent);
+//
+//    }
 
-        startActivity(intent);
+
+    @Override
+    public void onClick(View view) {
+
+        System.out.println("clicked");
 
     }
 }

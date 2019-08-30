@@ -20,6 +20,7 @@
     <color name="whiteColor">#FFFFFF</color>
     <color name="littleWhite">#efe3e3</color>
     <color name="colorDivider">#BDBDBD</color>
+    <color name="colorLightDivider">#EBE7E7</color>
     <color name="yellow">#FF9AAB07</color>
     <color name="lightPrimary">#FF1C1D2E</color>
     <color name="cardHeaderView">#595b93</color>

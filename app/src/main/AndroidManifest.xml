@@ -18,6 +18,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".event.EventListActivity"/>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+
         <activity android:name=".tickets.TicketListActivity">
 
             <intent-filter>
@@ -28,7 +35,7 @@
         </activity>
         <activity android:name=".event.EventDetailsActivity" />
         <activity android:name=".tickets.BookActivity" />
-        <activity android:name=".event.EventListActivity" />
+        <activity android:name=".qr.FirstActivity" />
         <activity android:name=".qr.GenerateQrCodeActivity" />
         <activity android:name=".qr.scan.ScanQrCodeActivity" />
         <activity android:name=".qr.scan.ScannedActivity" />

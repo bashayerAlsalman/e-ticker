@@ -6,21 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.NumberPicker;
 import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-
-import net.bashayer.eticket.MainActivity;
 import net.bashayer.eticket.R;
-import net.bashayer.eticket.event.EventCallback;
 import net.bashayer.eticket.tickets.models.ticketModel;
-
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,9 +24,9 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
     public Context context;
     public TicketCallback callback;
 
-    public ticketAdapter(Context context, TicketCallback callback, List<ticketModel> ticketModelList) {
+    public ticketAdapter(Context context,  List<ticketModel> ticketModelList ) {
         this.context = context;
-        this.callback = callback;
+      // this.callback = callback;
         this.ticketModels = ticketModelList;
     }
 
@@ -60,8 +53,8 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.ticketType)
-        public AppCompatTextView ticketType;
+//        @BindView(R.id.ticketType)
+//        public AppCompatTextView ticketType;
         @BindView(R.id.ticketPrice)
         public AppCompatTextView ticketPrice;
         @BindView(R.id.numberPicker)
@@ -73,14 +66,15 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
 
         @BindView(R.id.ticketTotalValue)
         public AppCompatTextView ticketTotalValue;
-
+        public List <ticketModel> selected ;
 
         @BindView(R.id.root)
         CardView root;
         int maxTickets = 5;
-        int minTickets = 1;
+        int minTickets = 0;
         int total = 0;
         double price ;
+        public String click ="click";
 
 
 
@@ -91,7 +85,8 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
             root.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    callback.onTicketClicked(ticketModels.get(getAdapterPosition()));
+                    //callback.onTicketClicked(ticketModels.get(getAdapterPosition()),numberPicker.getValue() );
+
                 }
             });
             if (maxTickets > ticketModel.seats)
@@ -110,9 +105,9 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
                         Toast.makeText(context, "selected number " + numberPicker.getValue(), Toast.LENGTH_LONG);
                         total = numberPicker.getValue() * (int) price;
                         ticketTotalValue.setText(total+"");
+
                         System.out.println("total ---------- " + total);
-
-
+                        ticketModel tickItem = new ticketModel();
 
                     }
 

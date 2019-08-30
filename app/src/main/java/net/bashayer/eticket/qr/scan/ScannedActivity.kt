@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_scanned.*
 import net.bashayer.eticket.R
 import net.bashayer.eticket.common.BaseActivity
 import net.bashayer.eticket.qr.helper.EncryptionHelper
@@ -28,5 +27,7 @@ class ScannedActivity : BaseActivity() {
         val userObject = Gson().fromJson(decryptedString, EventAttendee::class.java)
     //   scannedFullNameTextView.text = userObject.eventId
        // scannedAgeTextView.text = userObject.eventAttendeeName
+//        scannedFullNameTextView.text = userObject.eventId
+//        scannedAgeTextView.text = userObject.eventAttendeeName
     }
 }
