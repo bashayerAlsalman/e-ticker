@@ -66,6 +66,15 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
         public AppCompatTextView ticketPrice;
         @BindView(R.id.numberPicker)
         public NumberPicker numberPicker;
+        @BindView(R.id.ticketPriceValue)
+        public AppCompatTextView ticketPriceValue;
+        @BindView(R.id.ticketTypeValue)
+        public AppCompatTextView ticketTypeValue;
+
+        @BindView(R.id.ticketTotalValue)
+        public AppCompatTextView ticketTotalValue;
+
+
         @BindView(R.id.root)
         CardView root;
         int maxTickets = 5;
@@ -76,8 +85,8 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
 
 
         public void bind(ticketModel ticketModel) {
-            this.ticketType.setText(ticketModel.type);
-            this.ticketPrice.setText((ticketModel.price + ""));
+            this.ticketTypeValue.setText(ticketModel.type);
+            this.ticketPriceValue.setText((ticketModel.price + ""));
             price = ticketModel.price;
             root.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -100,6 +109,7 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
                     public void onValueChange(NumberPicker numberPicker, int i, int i1) {
                         Toast.makeText(context, "selected number " + numberPicker.getValue(), Toast.LENGTH_LONG);
                         total = numberPicker.getValue() * (int) price;
+                        ticketTotalValue.setText(total+"");
                         System.out.println("total ---------- " + total);
 
 
