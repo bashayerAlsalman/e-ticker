@@ -27,4 +27,5 @@
     <string name="eventDescription">Event description</string>
     <string name="eventLocationDescription">Event Location description</string>
     <string name="ticketsSold">Tickets are finished</string>
+    <string name="attendeeNotVerified">Attendee not verified</string>
 </resources>

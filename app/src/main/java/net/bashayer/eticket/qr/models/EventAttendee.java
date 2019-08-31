@@ -11,6 +11,12 @@ public class EventAttendee {
     public String city;
     public Date eventDate;
 
+    public String ticketId;
+
+    public EventAttendee(String ticketId) {
+        this.ticketId = ticketId;
+    }
+
     public EventAttendee(String eventName, String eventAttendeeName) {
         this.eventName = eventName;
         this.eventAttendeeName = eventAttendeeName;
