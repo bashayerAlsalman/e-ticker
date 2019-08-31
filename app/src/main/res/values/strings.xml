@@ -28,4 +28,7 @@
     <string name="eventLocationDescription">Event Location description</string>
     <string name="ticketsSold">Tickets are finished</string>
     <string name="attendeeNotVerified">Attendee not verified</string>
+    <string name="submit_rate">Send rate</string>
+    <string name="rate_this_event">Rate this event</string>
+    <string name="comment">write comment</string>
 </resources>

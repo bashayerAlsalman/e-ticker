@@ -28,4 +28,6 @@
     <string name="eventLocationDescription">Event Location description</string>
     <string name="ticketsSold">Tickes are sold</string>
     <string name="attendeeNotVerified">Attendee not verified</string>
+    <string name="submit_rate">Send rate</string>
+    <string name="comment">write comment</string>
 </resources>

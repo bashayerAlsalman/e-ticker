@@ -26,6 +26,7 @@ import net.bashayer.eticket.qr.helper.QRCodeHelper
 import net.bashayer.eticket.qr.models.AttendeeTicket
 import net.bashayer.eticket.qr.models.EventAttendee
 import net.bashayer.eticket.qr.models.EventAttendees
+import net.bashayer.eticket.tickets.models.Booking
 import java.util.*
 
 
@@ -52,17 +53,27 @@ class GenerateQrCodeActivity : BaseActivity(), TicketCallback {
                 EventAttendee("1234", "Nora Alyahya", "Elm hackathon in suhail", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam", "Riyadh", Date()),
                 EventAttendee("1234", "Nora Alyahya", "Elm hackathon in suhail", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam", "Riyadh", Date())))
 
-        val booking = intent.getSerializableExtra("booking")
+        val booking = intent.getSerializableExtra("booking") as Booking
         val eventModel = intent.getSerializableExtra("event") as NewEventModel
 
-        attendees.attendees.forEach {
-            val EventAttendee = EventAttendee(it.ticketId)
+        booking.tickets.forEach{
+            val EventAttendee = EventAttendee(it.id)
+
             val serializeString = Gson().toJson(EventAttendee)
             val encryptedString = EncryptionHelper.getInstance().encryptionString(serializeString).encryptMsg()
             val bitmap = QRCodeHelper.newInstance(this).setContent(encryptedString).setErrorCorrectionLevel(ErrorCorrectionLevel.Q).setMargin(2).qrcOde
 
-            QRCodes.add(AttendeeTicket(bitmap, it.eventId, it.eventAttendeeName, it.eventName, it.eventDescription, it.city, it.eventDate))
+            QRCodes.add(AttendeeTicket(bitmap, eventModel.eventId.toString(), it.attendeName, eventModel.name ,  eventModel.description,  eventModel.city,  eventModel.eventDate))
         }
+
+//        attendees.attendees.forEach {
+//            val EventAttendee = EventAttendee(it.ticketId)
+//            val serializeString = Gson().toJson(EventAttendee)
+//            val encryptedString = EncryptionHelper.getInstance().encryptionString(serializeString).encryptMsg()
+//            val bitmap = QRCodeHelper.newInstance(this).setContent(encryptedString).setErrorCorrectionLevel(ErrorCorrectionLevel.Q).setMargin(2).qrcOde
+//
+//            QRCodes.add(AttendeeTicket(bitmap, it.eventId, it.eventAttendeeName, it.eventName, it.eventDescription, it.city, it.eventDate))
+//        }
 
         //todo hide the loader
 
@@ -100,7 +111,7 @@ class GenerateQrCodeActivity : BaseActivity(), TicketCallback {
     }
 
 
-    fun getBitmapFromView(view: View): Bitmap {
+    private fun getBitmapFromView(view: View): Bitmap {
         //Define a bitmap with the same size as the view
         val returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888)
         //Bind a canvas to it
