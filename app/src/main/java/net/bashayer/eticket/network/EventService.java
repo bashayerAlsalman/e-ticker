@@ -1,7 +1,7 @@
 package net.bashayer.eticket.network;
 
 
-import net.bashayer.eticket.network.model.NewEvent;
+import net.bashayer.eticket.network.model.NewEventModel;
 
 import java.util.List;
 
@@ -13,5 +13,5 @@ public interface EventService {
 
     @GET("event")
         //@Headers("accept:application/json")
-    Observable<List<NewEvent>> getEvents(@Header("accept") String header);
+    Observable<List<NewEventModel>> getEvents(@Header("accept") String header);
 }

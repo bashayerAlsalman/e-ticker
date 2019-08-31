@@ -13,8 +13,10 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import net.bashayer.eticket.R;
-import net.bashayer.eticket.network.model.NewEvent;
+import net.bashayer.eticket.network.model.NewEventModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +26,14 @@ import butterknife.ButterKnife;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> implements Filterable {
 
-    public List<NewEvent> events = new ArrayList<>();
-    public List<NewEvent> filteredEvents = new ArrayList<>();
+    public static String url = "https://elmHackathon.s3.amazonaws.com/";
+
+    public List<NewEventModel> events = new ArrayList<>();
+    public List<NewEventModel> filteredEvents = new ArrayList<>();
     public Context context;
     public EventCallback callback;
 
-    public EventAdapter(Context context, EventCallback callback, List<NewEvent> eventList) {
+    public EventAdapter(Context context, EventCallback callback, List<NewEventModel> eventList) {
         this.context = context;
         this.callback = callback;
         this.events.addAll(eventList);
@@ -52,7 +56,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         return filteredEvents.size();
     }
 
-    public void updateEvents(List<NewEvent> events) {
+    public void updateEvents(List<NewEventModel> events) {
 
         this.events.clear();
         this.events.addAll(events);
@@ -71,14 +75,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 if (charString.isEmpty()) {
                     filteredEvents.addAll(events);
                 } else {
-                    List<NewEvent> filteredList = new ArrayList<>();
-                    for (NewEvent event : events) {
+                    List<NewEventModel> filteredList = new ArrayList<>();
+                    for (NewEventModel event : events) {
                         //filteredEvents.addAll(events);
                         // name match condition. this might differ depending on your requirement
                         // here we are looking for name or phone number match
-//           todo             if (event.name.toLowerCase().contains(charString.toLowerCase()) || event.city.toLowerCase().contains(charString.toLowerCase()) || event.description.toLowerCase().contains(charString.toLowerCase())) {
-//                            filteredList.add(event);
-//                        }
+                        //
+                        if (event.name.toLowerCase().contains(charString.toLowerCase()) || event.city.toLowerCase().contains(charString.toLowerCase()) || event.description.toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(event);
+                        }
                     }
                     filteredEvents = filteredList;
                 }
@@ -110,11 +115,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         @BindView(R.id.isFreeIcon)
         AppCompatImageView isFreeIcon;
 
-        public void bind(NewEvent eventModel) {
-            this.name.setText(eventModel.eventId.toString());
-//          Glide.with(context).load(eventModel.images.get(0)).into(icon);
-//            type.setText(eventModel.description);
-//            city.setText(eventModel.city);
+        public void bind(NewEventModel eventModel) {
+            this.name.setText(eventModel.name);
+            if (eventModel.eventImages != null && eventModel.eventImages.size() > 1) {
+                Glide.with(context).load(url + eventModel.eventImages.get(0)).into(icon);
+            }
+            type.setText(eventModel.description);
+            city.setText(eventModel.city);
             if (!eventModel.isFree) {
                 isFreeIcon.setVisibility(View.INVISIBLE);
             }

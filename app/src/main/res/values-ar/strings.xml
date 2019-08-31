@@ -5,7 +5,7 @@
     <string name="eventType">Event type</string>
     <string name="eventCity">Event city</string>
     <string name="book">Book</string>
-    <string name="eventDate">Event date</string>
+    <string name="eventDate">TBD</string>
     <string name="barcode_reader">QR code reader</string>
     <string name="scan_qr_code">Scan QR code</string>
     <string name="generate_qr_code">Generate QR code</string>
@@ -19,4 +19,8 @@
     <string name="attendeeVerified">Attendee verified</string>
     <string name="evens">Events</string>
     <string name="share_ticket">Share ticket</string>
+    <string name="anoynmous">Anoynmous</string>
+    <string name="eventDescription">Event descirption</string>
+    <string name="eventLocationDescription">Event Location description</string>
+    <string name="ticketsSold">Tickes are sold</string>
 </resources>
