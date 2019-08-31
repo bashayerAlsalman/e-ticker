@@ -6,6 +6,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.bashayer.eticket.R;
+import net.bashayer.eticket.qr.GenerateQrCodeActivity;
+import net.bashayer.eticket.tickets.models.Booking;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,26 +16,30 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ConfirmationActivity extends AppCompatActivity {
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_confirmation);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_confirmation);
 
-            //Getting Intent
-            Intent intent = getIntent();
+        //Getting Intent
+        Intent intent = getIntent();
+        Booking booking = (Booking) getIntent().getSerializableExtra("booking");
 
+        Intent intent1 = new Intent(this, GenerateQrCodeActivity.class);
+        intent1.putExtra("booking", booking);
+        startActivity(intent1);
+//
+//        try {
+//            JSONObject jsonDetails = new JSONObject(intent.getStringExtra("PaymentDetails"));
+//
+//            //Displaying payment details
+//            showDetails(jsonDetails.getJSONObject("response"), intent.getStringExtra("PaymentAmount"));
+//        } catch (JSONException e) {
+//            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//        }
+    }
 
-            try {
-                JSONObject jsonDetails = new JSONObject(intent.getStringExtra("PaymentDetails"));
-
-                //Displaying payment details
-                showDetails(jsonDetails.getJSONObject("response"), intent.getStringExtra("PaymentAmount"));
-            } catch (JSONException e) {
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        private void showDetails(JSONObject jsonDetails, String paymentAmount) throws JSONException {
+    private void showDetails(JSONObject jsonDetails, String paymentAmount) throws JSONException {
 //            //Views
 //            TextView textViewId = (TextView) findViewById(R.id.paymentId);
 //            TextView textViewStatus= (TextView) findViewById(R.id.paymentStatus);
@@ -45,6 +51,6 @@ public class ConfirmationActivity extends AppCompatActivity {
 //            textViewAmount.setText(paymentAmount+" USD");
 
 
-        }
+    }
 }
 /**/

@@ -27,18 +27,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder>  {
+public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder> {
 
     public List<ticketModel> ticketModels;
     public Context context;
     public TicketCallback callback;
-    public ArrayList<ticketModel> selected = new ArrayList<>() ;
+    public ArrayList<ticketModel> selected = new ArrayList<>();
+
+    int maxTickets = 5;
+    int minTickets = 0;
+    int total = 0;
+    double price;
+    String type;
+    public int totalVIP = 0;
+    public int totalP = 0;
+
 
     @BindView((R.id.addTickets))
     MaterialButton addTickets;
-    public ticketAdapter(Context context,  List<ticketModel> ticketModelList ) {
+
+    public ticketAdapter(Context context, List<ticketModel> ticketModelList) {
         this.context = context;
-      // this.callback = callback;
+        // this.callback = callback;
         this.ticketModels = ticketModelList;
 
 
@@ -64,14 +74,14 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
         return ticketModels.size();
     }
 
-    public void updateTickets(List<ticketModel> ticketModels,  MaterialButton addTickets ) {
+    public void updateTickets(List<ticketModel> ticketModels, MaterialButton addTickets) {
         this.ticketModels.clear();
         this.ticketModels.addAll(ticketModels);
         notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-//        @BindView(R.id.ticketType)
+        //        @BindView(R.id.ticketType)
 //        public AppCompatTextView ticketType;
         @BindView(R.id.ticketPrice)
         public AppCompatTextView ticketPrice;
@@ -87,21 +97,21 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
 
         @BindView(R.id.root)
         CardView root;
-        int maxTickets = 5;
-        int minTickets = 0;
-        int total = 0;
-        double price ;
-
-
-
 
         public void bind(ticketModel ticketModel) {
             this.ticketTypeValue.setText(ticketModel.type);
             this.ticketPriceValue.setText((ticketModel.price + ""));
             price = ticketModel.price;
-            if (maxTickets > ticketModel.seats)
-                maxTickets = (int) ticketModel.seats;
-            numberPicker.setMaxValue(maxTickets);
+            type = ticketModel.type;
+
+            System.out.println("max" + maxTickets);
+
+            if (ticketModel.seats > 0) {
+                if (maxTickets > ticketModel.seats)
+                    maxTickets = (int) ticketModel.seats;
+                numberPicker.setMaxValue(maxTickets);
+            }
+
             numberPicker.setMinValue(minTickets);
             numberPicker.setOnValueChangedListener(onValueChangeListener);
 
@@ -114,24 +124,21 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
                     public void onValueChange(NumberPicker numberPicker, int i, int i1) {
                         Toast.makeText(context, "selected number " + numberPicker.getValue(), Toast.LENGTH_LONG);
                         total = numberPicker.getValue() * (int) price;
-                        ticketTotalValue.setText(total+"");
-
-                        System.out.println("total ---------- " + total);
-                        ticketModel tickItem = new ticketModel();
-                        tickItem.setType("sss");
-                        selected.add(tickItem);
-
+                        ticketTotalValue.setText(total + "");
+                        if (type.equals("VIP"))
+                            totalVIP = numberPicker.getValue();
+                        if (type.equals("Platinum"))
+                            totalP = numberPicker.getValue();
                     }
 
-//
+
                 };
-                    public ViewHolder(@NonNull View itemView) {
-                        super(itemView);
-                        ButterKnife.bind(this, itemView);
-                    }
-                }
 
-
-
-
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
     }
+
+
+}

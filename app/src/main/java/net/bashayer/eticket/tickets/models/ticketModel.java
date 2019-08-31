@@ -15,6 +15,12 @@ public class ticketModel implements Serializable {
         this.seats = seats;
     }
 
+
+    public ticketModel(String type, double price) {
+        this.type = type;
+        this.price = price;
+
+    }
     public ticketModel() {
     }
 

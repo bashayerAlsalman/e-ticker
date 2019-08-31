@@ -28,4 +28,11 @@
     <string name="eventLocationDescription">Event Location description</string>
     <string name="ticketsSold">Tickes are sold</string>
     <string name="attendeeNotVerified">Attendee not verified</string>
+    <string name="ticketCount">Ticket count</string>
+    <string name="singleTicketPrice">Single ticket price</string>
+    <string name="ticketTotalPrice">Tickets price</string>
+    <string name="platunim">Platinum</string>
+    <string name="vip">VIP</string>
+    <string name="allTicketTotalPrice">Ticket total price</string>
+    <string name="addTickets">Add Tickets</string>
 </resources>

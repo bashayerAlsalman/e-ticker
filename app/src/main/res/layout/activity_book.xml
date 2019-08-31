@@ -7,68 +7,60 @@
     tools:context=".MainActivity">
 
 
-
-
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/attendeeNameL"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/attendeeNameL"
-        app:layout_constraintEnd_toStartOf="@id/booking"
-        >
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
     <com.google.android.material.button.MaterialButton
-        android:id ="@+id/booking"
-        android:layout_width="393dp"
-        android:layout_height="43dp"
+        android:id="@+id/booking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="8dp"
         android:text="@string/book_next"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.783"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        app:layout_constraintStart_toStartOf="parent">
 
     </com.google.android.material.button.MaterialButton>
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/attendeeName"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/attendeeName"
-        app:layout_constraintBottom_toBottomOf="@+id/booking"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="-30dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.068"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/attendeeEmail"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/attendeeEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/attendeeEmail" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/attendeeNameL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/attendeeEmail"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.188"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        tools:layout_editor_absoluteX="-12dp" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/attendeeName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/attendeeName"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

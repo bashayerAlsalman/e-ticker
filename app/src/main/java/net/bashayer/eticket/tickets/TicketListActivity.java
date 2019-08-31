@@ -48,6 +48,10 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
     public static String TICKET_KEY = "ticketKey";
     NewEventModel newEventModel;
 
+    ticketModel vipTicketModel;
+    ticketModel platTicketModel;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,14 +71,13 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
         int vipSeats = newEventModel.vipTicketCount - newEventModel.vipConsumedTicket;
         int platinumSeats = newEventModel.normalTicketCount - newEventModel.notmalConsumedTicket;
 
-        ticketModel ticketModel = new ticketModel("VIP", newEventModel.vipTicketPrice, vipSeats);
-        ticketModel ticketModel2 = new ticketModel("Platinum", newEventModel.notmalTicketPrice, platinumSeats);
+        vipTicketModel = new ticketModel("VIP", newEventModel.vipTicketPrice, vipSeats);
+        platTicketModel = new ticketModel("Platinum", newEventModel.notmalTicketPrice, platinumSeats);
 
-        ticketModels.add(ticketModel);
-        ticketModels.add(ticketModel2);
+        ticketModels.add(vipTicketModel);
+        ticketModels.add(platTicketModel);
 
         adapter.updateTickets(ticketModels, addTickets);
-
     }
 
     private void initAdapter() {
@@ -91,12 +94,22 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
         ArrayList<BookedTickets> bookedTickets = new ArrayList<>();
         System.out.println("before open Activity selected " + this.adapter.selected);
 
-        for (ticketModel ticket : this.adapter.selected)
-            for (int i = 0; i <= ticket.selectedQuantity; i++) {
-                String uniqueID = UUID.randomUUID().toString();
-                bookedTickets.add(new BookedTickets(uniqueID, ticket.type));
-                System.out.println("added");
-            }
+
+        for (int i = 0; i < this.adapter.totalVIP; i++) {
+            String uniqueID = UUID.randomUUID().toString();
+            bookedTickets.add(new BookedTickets(uniqueID, "VIP", vipTicketModel.price));
+        }
+
+        for (int i = 0; i < this.adapter.totalP; i++) {
+            String uniqueID = UUID.randomUUID().toString();
+            bookedTickets.add(new BookedTickets(uniqueID, "Platinum", platTicketModel.price));
+        }
+
+//        for (ticketModel ticket : this.adapter.selected)
+//            for (int i = 0; i <= ticket.selectedQuantity; i++) {
+//                String uniqueID = UUID.randomUUID().toString();
+//                bookedTickets.add(new BookedTickets(uniqueID, ticket.type, ticket.price));
+//            }
 
 
         System.out.println("before open Activity " + bookedTickets);

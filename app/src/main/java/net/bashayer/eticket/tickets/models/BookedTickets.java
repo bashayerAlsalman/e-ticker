@@ -9,6 +9,7 @@ public class BookedTickets implements Serializable {
     String attendeName;
     String attendeeEmail;
     String attendeeMobile;
+    double price;
 
     public BookedTickets(String id, String type, String attendeName, String attendeeEmail, String attendeeMobile) {
         this.id = id;
@@ -25,6 +26,23 @@ public class BookedTickets implements Serializable {
         this.attendeeEmail = attendeeEmail;
         this.attendeeMobile = attendeeMobile;
     }
+
+    public BookedTickets(String id, String type, String attendeName, String attendeeEmail, double price) {
+        this.id = id;
+        this.type = type;
+        this.attendeName = attendeName;
+        this.attendeeEmail = attendeeEmail;
+        this.price = price;
+    }
+
+    public BookedTickets(String id, String type, double price) {
+        this.id = id;
+        this.type = type;
+        this.attendeName = attendeName;
+        this.attendeeEmail = attendeeEmail;
+        this.price = price;
+    }
+
 
     public BookedTickets() {
     }
@@ -67,6 +85,14 @@ public class BookedTickets implements Serializable {
 
     public void setAttendeeMobile(String attendeeMobile) {
         this.attendeeMobile = attendeeMobile;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     @Override

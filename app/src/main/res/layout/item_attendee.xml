@@ -17,38 +17,29 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-      >
+        android:layout_marginTop="8dp">
 
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/ticketTypeValue"
-            android:layout_width="119dp"
-            android:layout_height="31dp"
-
-            android:text="LLLLL"
-            android:textSize="18sp"
+        <NumberPicker
+            android:id="@+id/numberPicker"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/numberPicker"
-            app:layout_constraintHorizontal_bias="0.106"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.096">
-
-        </androidx.appcompat.widget.AppCompatTextView>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></NumberPicker>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/ticketPrice"
             android:layout_width="123dp"
             android:layout_height="25dp"
-            android:layout_marginBottom="116dp"
             android:text="@string/ticketPrice"
+            android:layout_marginStart="16dp"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/numberPicker"
-            app:layout_constraintHorizontal_bias="0.106"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ticketTypeValue">
 
         </androidx.appcompat.widget.AppCompatTextView>
 
@@ -56,29 +47,26 @@
             android:id="@+id/ticketPriceValue"
             android:layout_width="41dp"
             android:layout_height="24dp"
-            android:layout_marginBottom="116dp"
             android:text="ssssss"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/numberPicker"
-            app:layout_constraintHorizontal_bias="0.329"
-            app:layout_constraintStart_toStartOf="@+id/ticketPrice">
+            app:layout_constraintBottom_toBottomOf="@+id/ticketPrice"
+            app:layout_constraintStart_toEndOf="@+id/ticketPrice"
+            app:layout_constraintTop_toBottomOf="@+id/ticketTypeValue">
 
         </androidx.appcompat.widget.AppCompatTextView>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/ticketTotal"
             android:layout_width="138dp"
-            android:layout_height="24dp"
+            android:layout_height="wrap_content"
             android:text="Tickets x Price = "
             android:textColor="#673AB7"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/numberPicker"
-            app:layout_constraintHorizontal_bias="0.093"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ticketPrice"
-            app:layout_constraintVertical_bias="0.826">
+            app:layout_constraintTop_toBottomOf="@+id/ticketPrice">
 
         </androidx.appcompat.widget.AppCompatTextView>
 
@@ -86,29 +74,25 @@
             android:id="@+id/ticketTotalValue"
             android:layout_width="135dp"
             android:layout_height="23dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/numberPicker"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ticketPrice"
-            app:layout_constraintVertical_bias="0.827">
+            app:layout_constraintBottom_toBottomOf="@+id/ticketTotal"
+            app:layout_constraintStart_toEndOf="@+id/ticketTotal"
+            app:layout_constraintTop_toTopOf="@+id/ticketTotal">
 
         </androidx.appcompat.widget.AppCompatTextView>
 
-        <NumberPicker
-            android:id="@+id/numberPicker"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/ticketTypeValue"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="312dp"
+            android:text="LLLLL"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            ></NumberPicker>
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/numberPicker"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-
+        </androidx.appcompat.widget.AppCompatTextView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

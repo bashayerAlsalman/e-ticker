@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
@@ -17,6 +19,7 @@ import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
 
 import net.bashayer.eticket.R;
+import net.bashayer.eticket.tickets.models.BookedTickets;
 import net.bashayer.eticket.tickets.models.Booking;
 
 import org.json.JSONException;
@@ -32,9 +35,38 @@ public class PaymentAactivity extends AppCompatActivity implements View.OnClickL
     @BindView(R.id.buttonPay)
     Button buttonPay;
 
-    @BindView(R.id.editTextAmount)
-    EditText editTextAmount;
+//    @BindView(R.id.editTextAmount)
+//    EditText editTextAmount;
 
+    @BindView(R.id.vipCount)
+    TextView vipCount;
+
+    @BindView(R.id.vipSinglePrice)
+    TextView vipSinglePrice;
+
+    @BindView(R.id.vipTotalPrice)
+    TextView vipTotalPrice;
+
+    @BindView(R.id.platTicketCount)
+    TextView platTicketCount;
+
+    @BindView(R.id.platSinglePrice)
+    TextView platSinglePrice;
+
+    @BindView(R.id.platTotalPrice)
+    TextView platTotalPrice;
+
+
+    @BindView(R.id.allTicketPrice)
+    TextView allTicketPrice;
+
+
+    ArrayList<BookedTickets> bookedTickets = new ArrayList<>();
+    ArrayList<BookedTickets> bookedTicketsVIP = new ArrayList<>();
+    ArrayList<BookedTickets> bookedTicketsPlatinum = new ArrayList<>();
+    double vipTotal = 0;
+    double platinumTotal = 0;
+    double totalAmount = 0;
     //Payment Amount
     private String paymentAmount;
 
@@ -54,22 +86,56 @@ public class PaymentAactivity extends AppCompatActivity implements View.OnClickL
 
         ButterKnife.bind(this);
 
-         booking = (Booking) getIntent().getSerializableExtra("booking");
-       //  String clientId = getIntent().getStringExtra("clientId");
-          buttonPay.setOnClickListener(this);
+        booking = (Booking) getIntent().getSerializableExtra("booking");
+        //  String clientId = getIntent().getStringExtra("clientId");
+        buttonPay.setOnClickListener(this);
 
+        String vipPrice = "";
+        String platPrice = "";
+
+        ArrayList<BookedTickets> bookedTickets = booking.getTickets();
+        for (BookedTickets bookedTicket : bookedTickets) {
+            if (bookedTicket.getType().equals("VIP")) {
+                vipPrice = bookedTicket.getPrice() + "";
+                bookedTicketsVIP.add(bookedTicket);
+                vipTotal += bookedTicket.getPrice();
+            }
+            if (bookedTicket.getType().equals("Platinum")) {
+                platPrice = bookedTicket.getPrice() + "";
+
+                bookedTicketsPlatinum.add(bookedTicket);
+                platinumTotal += bookedTicket.getPrice();
+            }
+        }
+
+        totalAmount = vipTotal + platinumTotal;
+
+
+        vipCount.setText(bookedTicketsVIP.size() + "");
+        vipSinglePrice.setText(vipPrice + "");
+        vipTotalPrice.setText(vipTotal + "");
+
+        platTicketCount.setText(bookedTicketsPlatinum.size() + "");
+        platSinglePrice.setText(platPrice + "");
+        platTotalPrice.setText(platinumTotal + "");
+
+        System.out.println("--------- price " + totalAmount);
+
+        allTicketPrice.setText(totalAmount + "");
+        paymentAmount = totalAmount + "";
 
         config = new PayPalConfiguration()
                 // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
                 // or live (ENVIRONMENT_PRODUCTION)
                 .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
-              //  .clientId(clientId)
-                 .clientId(PayPalConfig.PAYPAL_CLIENT_ID)
+                //  .clientId(clientId)
+                .clientId(PayPalConfig.PAYPAL_CLIENT_ID)
                 .acceptCreditCards(false);
 
 
         Intent intent = new Intent(this, PayPalService.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+        intent.putExtra("booking", booking);
 
         startService(intent);
     }
@@ -117,12 +183,9 @@ public class PaymentAactivity extends AppCompatActivity implements View.OnClickL
 
 
     private void getPayment() {
-        //Getting the amount from editText
-        paymentAmount = editTextAmount.getText().toString();
-
         //Creating a paypalpayment
 
-        PayPalPayment payment = new PayPalPayment(new BigDecimal(paymentAmount), "USD", "E-Ticketing",
+        PayPalPayment payment = new PayPalPayment(new BigDecimal(totalAmount), "USD", "E-Ticketing",
                 PayPalPayment.PAYMENT_INTENT_SALE);
         //Creating Paypal Payment activity intent
         Intent intent = new Intent(this, PaymentActivity.class);
