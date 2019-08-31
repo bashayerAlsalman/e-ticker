@@ -6,6 +6,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.bashayer.eticket.R;
+import net.bashayer.eticket.network.model.NewEventModel;
 import net.bashayer.eticket.qr.GenerateQrCodeActivity;
 import net.bashayer.eticket.tickets.models.Booking;
 
@@ -24,10 +25,14 @@ public class ConfirmationActivity extends AppCompatActivity {
         //Getting Intent
         Intent intent = getIntent();
         Booking booking = (Booking) getIntent().getSerializableExtra("booking");
+        NewEventModel eventModel = (NewEventModel) getIntent().getSerializableExtra("event");
+
 
         Intent intent1 = new Intent(this, GenerateQrCodeActivity.class);
         intent1.putExtra("booking", booking);
+        intent1.putExtra("event", eventModel);
         startActivity(intent1);
+        finish();
 //
 //        try {
 //            JSONObject jsonDetails = new JSONObject(intent.getStringExtra("PaymentDetails"));

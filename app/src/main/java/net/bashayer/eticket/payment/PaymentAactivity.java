@@ -2,6 +2,7 @@ package net.bashayer.eticket.payment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import com.google.gson.Gson;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -19,6 +21,8 @@ import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
 
 import net.bashayer.eticket.R;
+import net.bashayer.eticket.network.model.NewEventModel;
+import net.bashayer.eticket.qr.GenerateQrCodeActivity;
 import net.bashayer.eticket.tickets.models.BookedTickets;
 import net.bashayer.eticket.tickets.models.Booking;
 
@@ -28,6 +32,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static net.bashayer.eticket.event.EventListActivity.MY_PREFS_NAME;
 
 public class PaymentAactivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -74,7 +80,7 @@ public class PaymentAactivity extends AppCompatActivity implements View.OnClickL
     //Paypal intent request code to track onActivityResult method
     public static final int PAYPAL_REQUEST_CODE = 123;
     Booking booking;
-
+    NewEventModel eventModel;
     //Paypal Configuration Object
     private static PayPalConfiguration config;
 
@@ -87,6 +93,8 @@ public class PaymentAactivity extends AppCompatActivity implements View.OnClickL
         ButterKnife.bind(this);
 
         booking = (Booking) getIntent().getSerializableExtra("booking");
+        eventModel = (NewEventModel) getIntent().getSerializableExtra("event");
+
         //  String clientId = getIntent().getStringExtra("clientId");
         buttonPay.setOnClickListener(this);
 
@@ -136,8 +144,22 @@ public class PaymentAactivity extends AppCompatActivity implements View.OnClickL
         Intent intent = new Intent(this, PayPalService.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
         intent.putExtra("booking", booking);
+        intent.putExtra("event", eventModel);
 
         startService(intent);
+
+        Intent n = new Intent(this, GenerateQrCodeActivity.class);
+        n.putExtra("booking", booking);
+        n.putExtra("event", eventModel);
+
+        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+
+        Gson gson = new Gson();
+
+        editor.putString("booking", gson.toJson(booking));
+        editor.putString("event", gson.toJson(eventModel));
+
+        editor.commit();
     }
 
 

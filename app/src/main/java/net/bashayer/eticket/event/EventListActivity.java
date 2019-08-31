@@ -1,5 +1,6 @@
 package net.bashayer.eticket.event;
 
+import android.app.job.JobScheduler;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -31,6 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EventListActivity extends AppCompatActivity implements EventCallback {
 
+    public static  final  String MY_PREFS_NAME = "prename";
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.search)
@@ -51,7 +53,19 @@ public class EventListActivity extends AppCompatActivity implements EventCallbac
         loadData();
         //loadMockData();
         initSearch();
+        jobScheduler();
+
     }
+
+
+    private void jobScheduler(){
+
+        JobScheduler jobScheduler = (JobScheduler) getApplicationContext()
+                .getSystemService(JOB_SCHEDULER_SERVICE);
+
+
+    }
+
 
     private void initSearch() {
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

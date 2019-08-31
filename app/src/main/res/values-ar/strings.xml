@@ -35,4 +35,8 @@
     <string name="vip">VIP</string>
     <string name="allTicketTotalPrice">Ticket total price</string>
     <string name="addTickets">Add Tickets</string>
+    <string name="submit_rate">Send rate</string>
+    <string name="comment">write comment</string>
+    <string name="rate_this_event">Rate this event</string>
+
 </resources>

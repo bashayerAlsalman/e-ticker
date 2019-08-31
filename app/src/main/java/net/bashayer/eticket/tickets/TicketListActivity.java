@@ -118,6 +118,7 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
 
         Intent intent = new Intent(this, BookActivity.class);
         intent.putExtra("booking", booking);
+        intent.putExtra("event", newEventModel);
         startActivity(intent);
 
     }

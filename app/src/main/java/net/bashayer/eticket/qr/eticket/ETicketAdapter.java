@@ -86,7 +86,9 @@ public class ETicketAdapter extends RecyclerView.Adapter<ETicketAdapter.ViewHold
                 this.attendeeName.setText(attendeeTicket.getEventAttendeeName());
             }
             this.eventName.setText(attendeeTicket.getEventName());
-            this.eventDate.setText(simpleDateFormat.format(attendeeTicket.getEventDate()));
+           //todo
+            // this.eventDate.setText(simpleDateFormat.format(attendeeTicket.getEventDate()));
+            this.eventDate.setText(attendeeTicket.getEventDate());
             this.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

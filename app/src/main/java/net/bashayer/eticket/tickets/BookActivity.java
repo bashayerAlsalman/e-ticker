@@ -45,13 +45,14 @@ public class BookActivity extends BaseActivity implements View.OnClickListener {
     TextInputEditText email;
 
     public Booking booking;
-
+    public NewEventModel eventModel;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
         Intent intent = getIntent();
         booking = (Booking) intent.getSerializableExtra("booking");
+        eventModel = (NewEventModel) intent.getSerializableExtra("event");
         ButterKnife.bind(this);
         book.setOnClickListener(this);
 
@@ -78,6 +79,7 @@ public class BookActivity extends BaseActivity implements View.OnClickListener {
     private void nextPayment() {
         Intent intent = new Intent(this, PaymentAactivity.class);
         intent.putExtra("booking", booking);
+        intent.putExtra("event", eventModel);
         //intent.putExtra("clientId", clientId);
         startActivity(intent);
     }
