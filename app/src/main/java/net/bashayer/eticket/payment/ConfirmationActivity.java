@@ -43,6 +43,8 @@ public class ConfirmationActivity extends AppCompatActivity {
 //            textViewId.setText(jsonDetails.getString("id"));
 //            textViewStatus.setText(jsonDetails.getString("state"));
 //            textViewAmount.setText(paymentAmount+" USD");
+
+
         }
 }
 /**/

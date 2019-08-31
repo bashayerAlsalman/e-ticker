@@ -17,6 +17,7 @@ import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
 
 import net.bashayer.eticket.R;
+import net.bashayer.eticket.tickets.models.Booking;
 
 import org.json.JSONException;
 
@@ -40,14 +41,10 @@ public class PaymentAactivity extends AppCompatActivity implements View.OnClickL
 
     //Paypal intent request code to track onActivityResult method
     public static final int PAYPAL_REQUEST_CODE = 123;
-
+    Booking booking;
 
     //Paypal Configuration Object
-    private static PayPalConfiguration config = new PayPalConfiguration()
-            // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
-            // or live (ENVIRONMENT_PRODUCTION)
-            .environment(PayPalConfiguration.ENVIRONMENT_PRODUCTION)
-            .clientId(PayPalConfig.PAYPAL_CLIENT_ID);
+    private static PayPalConfiguration config;
 
 
     @Override
@@ -57,10 +54,21 @@ public class PaymentAactivity extends AppCompatActivity implements View.OnClickL
 
         ButterKnife.bind(this);
 
-        buttonPay.setOnClickListener(this);
+         booking = (Booking) getIntent().getSerializableExtra("booking");
+       //  String clientId = getIntent().getStringExtra("clientId");
+          buttonPay.setOnClickListener(this);
+
+
+        config = new PayPalConfiguration()
+                // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
+                // or live (ENVIRONMENT_PRODUCTION)
+                .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+              //  .clientId(clientId)
+                 .clientId(PayPalConfig.PAYPAL_CLIENT_ID)
+                .acceptCreditCards(false);
+
 
         Intent intent = new Intent(this, PayPalService.class);
-
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
 
         startService(intent);
@@ -113,9 +121,9 @@ public class PaymentAactivity extends AppCompatActivity implements View.OnClickL
         paymentAmount = editTextAmount.getText().toString();
 
         //Creating a paypalpayment
+
         PayPalPayment payment = new PayPalPayment(new BigDecimal(paymentAmount), "USD", "E-Ticketing",
                 PayPalPayment.PAYMENT_INTENT_SALE);
-
         //Creating Paypal Payment activity intent
         Intent intent = new Intent(this, PaymentActivity.class);
 

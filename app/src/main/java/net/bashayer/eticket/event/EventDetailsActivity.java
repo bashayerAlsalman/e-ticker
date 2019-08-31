@@ -26,6 +26,7 @@ import net.bashayer.eticket.common.BaseActivity;
 import net.bashayer.eticket.network.model.EventImage;
 import net.bashayer.eticket.network.model.NewEventModel;
 import net.bashayer.eticket.qr.GenerateQrCodeActivity;
+import net.bashayer.eticket.tickets.TicketListActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -92,7 +93,7 @@ public class EventDetailsActivity extends BaseActivity implements OnMapReadyCall
         eventCity.setText(eventModel.city + "");
         eventType.setText(eventModel.eventType + "");
 
-        if(eventModel.eventDate != null){
+        if (eventModel.eventDate != null) {
             try {
                 Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(eventModel.eventDate + "");
                 eventDate.setText(date1 + "");
@@ -113,11 +114,11 @@ public class EventDetailsActivity extends BaseActivity implements OnMapReadyCall
     }
 
     private void goToETickets() {
-        Intent intent = new Intent(this, GenerateQrCodeActivity.class);
-        // intent.putExtra("","");
+       // Intent intent = new Intent(this, GenerateQrCodeActivity.class);
+        Intent intent = new Intent(this, TicketListActivity.class);
+        intent.putExtra("event", eventModel);
 
         startActivity(intent);
-
     }
 
     private void initGoogleMap() {

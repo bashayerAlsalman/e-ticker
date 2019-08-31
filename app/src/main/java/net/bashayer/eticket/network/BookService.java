@@ -13,10 +13,10 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 
-public interface EventService {
+public interface BookService {
 
-    @GET("event")
-    Observable<List<NewEventModel>> getEvents(@Header("accept") String header);
+    @POST("booking")
+    Completable postBooking(@Header("accept") String header, @Body Booking booking);
 
 
 //    @GET("event")
