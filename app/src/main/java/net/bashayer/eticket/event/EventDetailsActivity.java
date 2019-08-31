@@ -134,7 +134,7 @@ public class EventDetailsActivity extends BaseActivity implements OnMapReadyCall
 
             for (EventImage image : eventModel.eventImages) {
                 TextSliderView textSliderView = new TextSliderView(this);
-                textSliderView.image(EventAdapter.url + image.fileID)
+                textSliderView.image(EventAdapter.url + image.name)
                         .setRequestOption(requestOptions)
                         .setProgressBarVisible(true);
 
