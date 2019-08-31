@@ -23,4 +23,5 @@
     <string name="eventDescription">Event descirption</string>
     <string name="eventLocationDescription">Event Location description</string>
     <string name="ticketsSold">Tickes are sold</string>
+    <string name="attendeeNotVerified">Attendee not verified</string>
 </resources>

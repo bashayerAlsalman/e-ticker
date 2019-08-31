@@ -19,6 +19,7 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import kotlinx.android.synthetic.main.activity_generate_qr_code.*
 import net.bashayer.eticket.R
 import net.bashayer.eticket.common.BaseActivity
+import net.bashayer.eticket.network.model.NewEventModel
 import net.bashayer.eticket.qr.eticket.ETicketAdapter
 import net.bashayer.eticket.qr.helper.EncryptionHelper
 import net.bashayer.eticket.qr.helper.QRCodeHelper
@@ -51,10 +52,11 @@ class GenerateQrCodeActivity : BaseActivity(), TicketCallback {
                 EventAttendee("1234", "Nora Alyahya", "Elm hackathon in suhail", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam", "Riyadh", Date()),
                 EventAttendee("1234", "Nora Alyahya", "Elm hackathon in suhail", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam", "Riyadh", Date())))
 
-        //todo show loader and message getting the tickets
+        val booking = intent.getSerializableExtra("booking")
+        val eventModel = intent.getSerializableExtra("event") as NewEventModel
 
         attendees.attendees.forEach {
-            val EventAttendee = EventAttendee(it.eventName, it.eventAttendeeName)
+            val EventAttendee = EventAttendee(it.ticketId)
             val serializeString = Gson().toJson(EventAttendee)
             val encryptedString = EncryptionHelper.getInstance().encryptionString(serializeString).encryptMsg()
             val bitmap = QRCodeHelper.newInstance(this).setContent(encryptedString).setErrorCorrectionLevel(ErrorCorrectionLevel.Q).setMargin(2).qrcOde
