@@ -1,15 +1,24 @@
 package net.bashayer.eticket.tickets;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.NumberPicker;
 import android.widget.Toast;
+
+import com.google.android.material.button.MaterialButton;
+
 import net.bashayer.eticket.R;
+import net.bashayer.eticket.qr.GenerateQrCodeActivity;
+import net.bashayer.eticket.tickets.models.BookedTickets;
 import net.bashayer.eticket.tickets.models.ticketModel;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -18,27 +27,36 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder> {
+public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder>  {
 
     public List<ticketModel> ticketModels;
     public Context context;
     public TicketCallback callback;
+    public ArrayList<ticketModel> selected = new ArrayList<>() ;
 
+    @BindView((R.id.addTickets))
+    MaterialButton addTickets;
     public ticketAdapter(Context context,  List<ticketModel> ticketModelList ) {
         this.context = context;
       // this.callback = callback;
         this.ticketModels = ticketModelList;
+
+
     }
 
     @NonNull
     @Override
     public ticketAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         return new ticketAdapter.ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_attendee, parent, false));
+
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull ticketAdapter.ViewHolder holder, int position) {
         holder.bind(ticketModels.get(position));
+
     }
 
     @Override
@@ -46,7 +64,7 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
         return ticketModels.size();
     }
 
-    public void updateTickets(List<ticketModel> ticketModels) {
+    public void updateTickets(List<ticketModel> ticketModels,  MaterialButton addTickets ) {
         this.ticketModels.clear();
         this.ticketModels.addAll(ticketModels);
         notifyDataSetChanged();
@@ -66,7 +84,6 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
 
         @BindView(R.id.ticketTotalValue)
         public AppCompatTextView ticketTotalValue;
-        public List <ticketModel> selected ;
 
         @BindView(R.id.root)
         CardView root;
@@ -74,7 +91,7 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
         int minTickets = 0;
         int total = 0;
         double price ;
-        public String click ="click";
+
 
 
 
@@ -82,13 +99,6 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
             this.ticketTypeValue.setText(ticketModel.type);
             this.ticketPriceValue.setText((ticketModel.price + ""));
             price = ticketModel.price;
-            root.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //callback.onTicketClicked(ticketModels.get(getAdapterPosition()),numberPicker.getValue() );
-
-                }
-            });
             if (maxTickets > ticketModel.seats)
                 maxTickets = (int) ticketModel.seats;
             numberPicker.setMaxValue(maxTickets);
@@ -108,6 +118,8 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
 
                         System.out.println("total ---------- " + total);
                         ticketModel tickItem = new ticketModel();
+                        tickItem.setType("sss");
+                        selected.add(tickItem);
 
                     }
 
@@ -118,6 +130,8 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
                         ButterKnife.bind(this, itemView);
                     }
                 }
+
+
 
 
     }

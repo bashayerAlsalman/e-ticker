@@ -14,10 +14,12 @@ import net.bashayer.eticket.event.EventCallback;
 import net.bashayer.eticket.event.EventDetailsActivity;
 import net.bashayer.eticket.network.EventService;
 import net.bashayer.eticket.network.model.EventModel;
+import net.bashayer.eticket.tickets.models.BookedTickets;
 import net.bashayer.eticket.tickets.models.ticketModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,7 +68,8 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
         ticketModels.add(ticketModel3);
 
 
-        adapter.updateTickets(ticketModels);
+        adapter.updateTickets(ticketModels , addTickets);
+
     }
 
     private void initAdapter() {
@@ -74,6 +77,7 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
         adapter = new ticketAdapter(this , new ArrayList<ticketModel>());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
     }
 
 
@@ -136,7 +140,17 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
 
-        System.out.println("clicked");
+        ArrayList<BookedTickets> bookedTickets = new ArrayList<>();
+        for(ticketModel ticket : this.adapter.selected)
+            for (int i = 0; i < ticket.selectedQuantity; i++) {
+                String uniqueID = UUID.randomUUID().toString();
+                bookedTickets.add( new BookedTickets(uniqueID , ticket.type));
+
+            }
+
+        Intent intent = new Intent(this, BookActivity.class);
+        intent.putExtra("tickets",bookedTickets);
+        startActivity(intent);
 
     }
 }

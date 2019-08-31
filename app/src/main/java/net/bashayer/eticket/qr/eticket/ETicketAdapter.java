@@ -86,7 +86,7 @@ public class ETicketAdapter extends RecyclerView.Adapter<ETicketAdapter.ViewHold
             this.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    callback.onTicketClicked(attendeeTicket);
+                    callback.onTicketClicked(view);
                 }
             });
         }

@@ -21,4 +21,6 @@
     <string name="attendeeName">Attendee name</string>
     <string name="attendeeVerified">Attendee verified</string>
     <string name="evens">Events</string>
+    <string name="share_ticket">Share ticket</string>
+    <string name="book_next"><![CDATA[Book & Next Paymrnt]]></string>
 </resources>

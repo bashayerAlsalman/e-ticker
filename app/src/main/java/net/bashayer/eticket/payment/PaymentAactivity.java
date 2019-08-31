@@ -47,7 +47,9 @@ public class PaymentAactivity extends AppCompatActivity implements View.OnClickL
             // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
             // or live (ENVIRONMENT_PRODUCTION)
             .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
-            .clientId(PayPalConfig.PAYPAL_CLIENT_ID);
+            .clientId(PayPalConfig.PAYPAL_CLIENT_ID)
+            .acceptCreditCards(false);
+
 
 
     @Override
@@ -113,9 +115,9 @@ public class PaymentAactivity extends AppCompatActivity implements View.OnClickL
         paymentAmount = editTextAmount.getText().toString();
 
         //Creating a paypalpayment
-        PayPalPayment payment = new PayPalPayment(new BigDecimal(paymentAmount), "USD", "E-Ticketing",
-                PayPalPayment.PAYMENT_INTENT_SALE);
 
+        PayPalPayment payment = new PayPalPayment(new BigDecimal(paymentAmount), "USD", "E-Ticketing",
+                PayPalPayment.PAYMENT_INTENT_SALE );
         //Creating Paypal Payment activity intent
         Intent intent = new Intent(this, PaymentActivity.class);
 

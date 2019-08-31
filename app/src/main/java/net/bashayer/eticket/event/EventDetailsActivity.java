@@ -3,6 +3,8 @@ package net.bashayer.eticket.event;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
 
@@ -20,7 +22,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import net.bashayer.eticket.R;
 import net.bashayer.eticket.common.BaseActivity;
+import net.bashayer.eticket.network.model.EventImage;
 import net.bashayer.eticket.network.model.EventModel;
+import net.bashayer.eticket.network.model.NewEvent;
+import net.bashayer.eticket.qr.GenerateQrCodeActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,10 +33,13 @@ import butterknife.ButterKnife;
 public class EventDetailsActivity extends BaseActivity implements OnMapReadyCallback {
 
 
-    private EventModel eventModel;
+    private NewEvent eventModel;
 
     @BindView(R.id.slider)
     SliderLayout slider;
+
+    @BindView(R.id.button)
+    Button button;
 
     private GoogleMap mMap;
 
@@ -41,18 +49,31 @@ public class EventDetailsActivity extends BaseActivity implements OnMapReadyCall
         setContentView(R.layout.activity_event_details);
 
         ButterKnife.bind(this);
-        eventModel = (EventModel) getIntent().getSerializableExtra(EventListActivity.EVENT_KEY);
-        getSupportActionBar().setTitle(eventModel.name);
+        eventModel = (NewEvent) getIntent().getSerializableExtra(EventListActivity.EVENT_KEY);
+        getSupportActionBar().setTitle(eventModel.eventName);
         initImageSlider();
         initGoogleMap();
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToETickets();
+            }
+        });
+    }
+
+    private void goToETickets() {
+        Intent intent = new Intent(this, GenerateQrCodeActivity.class);
+       // intent.putExtra("","");
+
+        startActivity(intent);
+
     }
 
     private void initGoogleMap() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-
     }
 
 
@@ -60,9 +81,9 @@ public class EventDetailsActivity extends BaseActivity implements OnMapReadyCall
         RequestOptions requestOptions = new RequestOptions();
         requestOptions.centerCrop();
 
-        for (String image : eventModel.images) {
+        for (EventImage image : eventModel.eventImages) {
             TextSliderView textSliderView = new TextSliderView(this);
-            textSliderView.image(image)
+            textSliderView.image(image.url)
                     .setRequestOption(requestOptions)
                     .setProgressBarVisible(true);
 
@@ -90,7 +111,7 @@ public class EventDetailsActivity extends BaseActivity implements OnMapReadyCall
         mMap = googleMap;
 
         LatLng location = new LatLng(eventModel.latitude, eventModel.longitude);
-        mMap.addMarker(new MarkerOptions().position(location).title(eventModel.name));
+        mMap.addMarker(new MarkerOptions().position(location).title(eventModel.eventName));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
         mMap.setMinZoomPreference(15.0f);
         mMap.setMaxZoomPreference(20.0f);

@@ -13,12 +13,14 @@
     <string name="first_name">Firm name</string>
     <string name="age">Age</string>
     <string name="attendeeTicket">Attendee ticket</string>
-    <string name="attendeeName">Attendee Name</string>
+    <string name="attendeeName">Name</string>
     <string name="ticketType">Ticket Type</string>
     <string name="ticketPrice">Price</string>
-    <string name="attendeeEmail">Attendee Email</string>
+    <string name="attendeeEmail"> Email</string>
     <string name="share_using">Share using</string>
     <string name="attendeeVerified">Attendee verified</string>
     <string name="evens">Events</string>
 
+    <string name="share_ticket">Share ticket</string>
+    <string name="book_next"><![CDATA[Book & Next Paymrnt]]></string>
 </resources>
