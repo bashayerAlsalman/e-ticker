@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -34,6 +35,7 @@ class GenerateQrCodeActivity : BaseActivity(), TicketCallback {
     companion object {
         fun getGenerateQrCodeActivity(callingClassContext: Context) = Intent(callingClassContext, GenerateQrCodeActivity::class.java)
         val EVENT_ATTENDEES_KEY = "event-attendees"
+        public val EVENT_KEY = "event"
         private const val MY_WRITE_REQUEST_CODE = 6516
     }
 
@@ -74,6 +76,7 @@ class GenerateQrCodeActivity : BaseActivity(), TicketCallback {
         }
     }
 
+
     override fun onTicketClicked(attendeeTicket: View) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -81,8 +84,9 @@ class GenerateQrCodeActivity : BaseActivity(), TicketCallback {
                 return
             }
         }
+        //attendeeTicket.findViewById<AppCompatImageView>(R.id.shareButton).visibility = View.GONE
 
-        val mBitmap = createBitmapFromLayout(attendeeTicket )//todo event info
+        val mBitmap = getBitmapFromView(attendeeTicket)
         val path = MediaStore.Images.Media.insertImage(contentResolver, mBitmap, getString(R.string.share_ticket), null)
         val uri = Uri.parse(path)
 
@@ -95,16 +99,23 @@ class GenerateQrCodeActivity : BaseActivity(), TicketCallback {
     }
 
 
-    private fun createBitmapFromLayout(tv: View): Bitmap { //todo
-        val spec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-        tv.measure(spec, spec)
-        tv.layout(0, 0, tv.measuredWidth, tv.measuredHeight)
-        val b = Bitmap.createBitmap(tv.measuredWidth, tv.measuredWidth,
-                Bitmap.Config.ARGB_8888)
-        val c = Canvas(b)
-        c.translate((-tv.scrollX).toFloat(), (-tv.scrollY).toFloat())
-        tv.draw(c)
-        return b
+    fun getBitmapFromView(view: View): Bitmap {
+        //Define a bitmap with the same size as the view
+        val returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888)
+        //Bind a canvas to it
+        val canvas = Canvas(returnedBitmap)
+        //Get the view's background
+        val bgDrawable = view.getBackground()
+        if (bgDrawable != null)
+        //has background drawable, then draw it on the canvas
+            bgDrawable!!.draw(canvas)
+        else
+        //does not have background drawable, then draw white background on the canvas
+            canvas.drawColor(Color.WHITE)
+        // draw the view on the canvas
+        view.draw(canvas)
+        //return the bitmap
+        return returnedBitmap
     }
 
 }

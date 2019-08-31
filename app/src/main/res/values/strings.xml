@@ -4,11 +4,11 @@
     <string name="eventType">Event type</string>
     <string name="eventCity">Event city</string>
     <string name="book">Book</string>
-    <string name="eventDate">Event date</string>
+    <string name="eventDate">TBD</string>
     <string name="barcode_reader">QR code reader</string>
     <string name="scan_qr_code">Scan QR code</string>
     <string name="generate_qr_code">Generate QR code</string>
-    <string name="app_needs_your_camera_permission_in_order_to_scan_qr_code">Need camera permsisson</string>
+    <string name="app_needs_your_camera_permission_in_order_to_scan_qr_code">Need camera permission</string>
     <string name="scanned_qr_code_result">Scan result</string>
     <string name="first_name">Firm name</string>
     <string name="age">Age</string>
@@ -23,4 +23,8 @@
 
     <string name="share_ticket">Share ticket</string>
     <string name="book_next"><![CDATA[Book & Next Paymrnt]]></string>
+    <string name="anoynmous">Anonymous</string>
+    <string name="eventDescription">Event description</string>
+    <string name="eventLocationDescription">Event Location description</string>
+    <string name="ticketsSold">Tickets are finished</string>
 </resources>

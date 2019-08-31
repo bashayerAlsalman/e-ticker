@@ -80,7 +80,11 @@ public class ETicketAdapter extends RecyclerView.Adapter<ETicketAdapter.ViewHold
         public void bind(AttendeeTicket attendeeTicket) {
             this.qrCodeImage.setImageBitmap(attendeeTicket.getQRCodeImage());
             this.eventCity.setText(attendeeTicket.getCity());
-            this.attendeeName.setText(attendeeTicket.getEventAttendeeName());
+            if (attendeeTicket.getEventAttendeeName().isEmpty()) {
+                this.attendeeName.setText(context.getString(R.string.anoynmous));
+            } else {
+                this.attendeeName.setText(attendeeTicket.getEventAttendeeName());
+            }
             this.eventName.setText(attendeeTicket.getEventName());
             this.eventDate.setText(simpleDateFormat.format(attendeeTicket.getEventDate()));
             this.cardView.setOnClickListener(new View.OnClickListener() {

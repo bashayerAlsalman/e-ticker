@@ -19,14 +19,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".event.EventListActivity"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
 
-        <activity android:name=".tickets.TicketListActivity">
+        <activity android:name=".event.EventListActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,14 +33,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".event.EventDetailsActivity" />
+        <activity android:name=".tickets.TicketListActivity" />
         <activity android:name=".tickets.BookActivity" />
+        <activity android:name=".payment.PaymentAactivity" />
         <activity android:name=".qr.GenerateQrCodeActivity" />
         <activity android:name=".qr.scan.ScanQrCodeActivity" />
         <activity android:name=".qr.scan.ScannedActivity" />
+        <activity android:name=".payment.ConfirmationActivity" />
 
-        <activity android:name=".payment.ConfirmationActivity"/>
+        <service android:name=".notification.MyService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
-
 
 </manifest>

@@ -14,7 +14,9 @@ import net.bashayer.eticket.event.EventCallback;
 import net.bashayer.eticket.event.EventDetailsActivity;
 import net.bashayer.eticket.network.EventService;
 import net.bashayer.eticket.network.model.EventModel;
+import net.bashayer.eticket.network.model.NewEventModel;
 import net.bashayer.eticket.tickets.models.BookedTickets;
+import net.bashayer.eticket.tickets.models.Booking;
 import net.bashayer.eticket.tickets.models.ticketModel;
 
 import java.util.ArrayList;
@@ -44,6 +46,7 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
     MaterialButton addTickets;
     public ticketAdapter adapter;
     public static String TICKET_KEY = "ticketKey";
+    NewEventModel newEventModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,105 +54,57 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_ticket_list);
 
         ButterKnife.bind(this);
+
+        newEventModel = (NewEventModel) getIntent().getSerializableExtra("event");
         initAdapter();
-        //todo loadData();
         loadMockData();
         addTickets.setOnClickListener(this);
     }
 
     private void loadMockData() {
         List<ticketModel> ticketModels = new ArrayList<>();
-        ticketModel ticketModel = new ticketModel("VIP", 100,100);
-        ticketModel ticketModel2 = new ticketModel("Platinum", 50,100);
-        ticketModel ticketModel3 = new ticketModel("Gold", 40,100);
+
+        int vipSeats = newEventModel.vipTicketCount - newEventModel.vipConsumedTicket;
+        int platinumSeats = newEventModel.normalTicketCount - newEventModel.notmalConsumedTicket;
+
+        ticketModel ticketModel = new ticketModel("VIP", newEventModel.vipTicketPrice, vipSeats);
+        ticketModel ticketModel2 = new ticketModel("Platinum", newEventModel.notmalTicketPrice, platinumSeats);
 
         ticketModels.add(ticketModel);
         ticketModels.add(ticketModel2);
-        ticketModels.add(ticketModel3);
 
-
-        adapter.updateTickets(ticketModels , addTickets);
+        adapter.updateTickets(ticketModels, addTickets);
 
     }
 
     private void initAdapter() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        adapter = new ticketAdapter(this , new ArrayList<ticketModel>());
+        adapter = new ticketAdapter(this, new ArrayList<ticketModel>());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
     }
 
-
-
-    private void loadData() {
-
-        //
-
-
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("http://www.mocky.io/")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//                .build();
-//
-//        EventService service = retrofit.create(EventService.class);
-//
-//        service.getEvents()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<List<ticketModel>>() {
-//
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(List<ticketModel> value) {
-//                        adapter.updateTickets(value);
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        //todo
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//                        //todo
-//                    }
-//                });
-
-    }
-
-
-//    @Override
-//    public void onTicketClicked(ticketModel ticket , int number ) {
-//
-//        System.out.println("---------"+number);
-//
-//        Intent intent = new Intent(this, BookActivity.class);
-//        intent.putExtra(TICKET_KEY, ticket);
-//
-//        startActivity(intent);
-//
-//    }
-
-
     @Override
     public void onClick(View view) {
 
         ArrayList<BookedTickets> bookedTickets = new ArrayList<>();
-        for(ticketModel ticket : this.adapter.selected)
-            for (int i = 0; i < ticket.selectedQuantity; i++) {
-                String uniqueID = UUID.randomUUID().toString();
-                bookedTickets.add( new BookedTickets(uniqueID , ticket.type));
+        System.out.println("before open Activity selected " + this.adapter.selected);
 
+        for (ticketModel ticket : this.adapter.selected)
+            for (int i = 0; i <= ticket.selectedQuantity; i++) {
+                String uniqueID = UUID.randomUUID().toString();
+                bookedTickets.add(new BookedTickets(uniqueID, ticket.type));
+                System.out.println("added");
             }
 
+
+        System.out.println("before open Activity " + bookedTickets);
+        Booking booking = new Booking(newEventModel.eventId, bookedTickets);
+
+
         Intent intent = new Intent(this, BookActivity.class);
-        intent.putExtra("tickets",bookedTickets);
+        intent.putExtra("booking", booking);
         startActivity(intent);
 
     }

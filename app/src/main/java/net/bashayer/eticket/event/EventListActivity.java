@@ -13,7 +13,7 @@ import net.bashayer.eticket.R;
 import net.bashayer.eticket.network.EventService;
 import net.bashayer.eticket.network.UnsafeOkHttpClient;
 import net.bashayer.eticket.network.model.EventModel;
-import net.bashayer.eticket.network.model.NewEvent;
+import net.bashayer.eticket.network.model.NewEventModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,13 +84,13 @@ public class EventListActivity extends AppCompatActivity implements EventCallbac
 
     private void initAdapter() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        adapter = new EventAdapter(this, this, new ArrayList<NewEvent>());
+        adapter = new EventAdapter(this, this, new ArrayList<NewEventModel>());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
 
     @Override
-    public void onEventClicked(NewEvent event) {
+    public void onEventClicked(NewEventModel event) {
         Intent intent = new Intent(this, EventDetailsActivity.class);
         intent.putExtra(EVENT_KEY, event);
 
@@ -113,14 +113,14 @@ public class EventListActivity extends AppCompatActivity implements EventCallbac
         service.getEvents("application/json")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<NewEvent>>() {
+                .subscribe(new Observer<List<NewEventModel>>() {
 
                     @Override
                     public void onSubscribe(Disposable d) {
                     }
 
                     @Override
-                    public void onNext(List<NewEvent> value) {
+                    public void onNext(List<NewEventModel> value) {
                          adapter.updateEvents(value);
                     }
 

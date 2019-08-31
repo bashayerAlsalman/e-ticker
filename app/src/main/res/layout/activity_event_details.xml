@@ -13,21 +13,75 @@
             android:layout_width="match_parent"
             android:layout_height="200dp" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/ticketFinished"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/lightRed"
+            android:padding="8dp"
+            android:text="@string/ticketsSold"
+            android:textAlignment="center"
+            android:textColor="@color/colorLightDivider"
+            android:textSize="16dp"
+            android:visibility="gone"
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/eventDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/eventName" />
+                android:layout_marginBottom="8dp"
+                android:text="@string/eventDescription"
+                android:textSize="16sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/eventCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/eventDate" />
+                android:layout_marginBottom="8dp"
+                android:text="@string/eventCity"
+                android:textColor="@color/primaryColor" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/eventType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/eventType"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/eventDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/eventDate"
+                    android:textColor="@color/primaryColor"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/eventLocationDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/eventLocationDescription" />
+
         </LinearLayout>
 
 

@@ -4,17 +4,17 @@ package net.bashayer.eticket.network.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class EventImage {
+import java.io.Serializable;
 
+public class EventImage implements Serializable {
     @SerializedName("FileID")
     @Expose
     public Integer fileID;
     @SerializedName("Name")
     @Expose
     public String name;
-
-    //todo @SerializedName("Name")
+    @SerializedName("Size")
     @Expose
-    public String url = "https://android-bus-ticket-sale-software.com/en/assets/images/image01-2-671x397.png";
+    public Integer size;
 
 }
