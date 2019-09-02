@@ -25,7 +25,6 @@ import net.bashayer.eticket.R;
 import net.bashayer.eticket.common.BaseActivity;
 import net.bashayer.eticket.network.model.EventImage;
 import net.bashayer.eticket.network.model.NewEventModel;
-import net.bashayer.eticket.qr.GenerateQrCodeActivity;
 import net.bashayer.eticket.tickets.TicketListActivity;
 
 import java.text.ParseException;
@@ -93,16 +92,26 @@ public class EventDetailsActivity extends BaseActivity implements OnMapReadyCall
         eventCity.setText(eventModel.city + "");
         eventType.setText(eventModel.eventType + "");
 
-        if (eventModel.eventDate != null) {
-            try {
-                Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(eventModel.eventDate + "");
-                eventDate.setText(date1 + "");
-            } catch (ParseException e) {
-                eventDate.setText(eventModel.eventDate + "");
-                e.printStackTrace();
-            }
-        }
+//        if (eventModel.eventDate != null) {
+//            try {
+//                Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(eventModel.eventDate + "");
+//                eventDate.setText(date1 + "");
+//            } catch (ParseException e) {
+//                eventDate.setText(eventModel.eventDate + "");
+//                e.printStackTrace();
+//            }
+//        }
 
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(eventModel.eventDate);
+            String formattedDate = new SimpleDateFormat("dd/MM/yyyy, Ka").format(date);
+
+            eventDate.setText(formattedDate + "");
+        } catch (ParseException e) {
+            eventDate.setText(eventModel.eventDate + "");
+            e.printStackTrace();
+        }
 
         eventLocationDescription.setText(eventModel.locationDescription + "");
 
@@ -114,7 +123,7 @@ public class EventDetailsActivity extends BaseActivity implements OnMapReadyCall
     }
 
     private void goToETickets() {
-       // Intent intent = new Intent(this, GenerateQrCodeActivity.class);
+        // Intent intent = new Intent(this, GenerateQrCodeActivity.class);
         Intent intent = new Intent(this, TicketListActivity.class);
         intent.putExtra("event", eventModel);
 
@@ -135,7 +144,7 @@ public class EventDetailsActivity extends BaseActivity implements OnMapReadyCall
 
             for (EventImage image : eventModel.eventImages) {
                 TextSliderView textSliderView = new TextSliderView(this);
-                textSliderView.image(EventAdapter.url + image.name)
+                textSliderView.image(EventAdapter.url + image.file_uiid)
                         .setRequestOption(requestOptions)
                         .setProgressBarVisible(true);
 

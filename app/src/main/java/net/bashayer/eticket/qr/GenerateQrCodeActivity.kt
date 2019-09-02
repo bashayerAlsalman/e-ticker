@@ -26,8 +26,8 @@ import net.bashayer.eticket.qr.helper.EncryptionHelper
 import net.bashayer.eticket.qr.helper.QRCodeHelper
 import net.bashayer.eticket.qr.models.AttendeeTicket
 import net.bashayer.eticket.qr.models.EventAttendee
-import net.bashayer.eticket.qr.models.EventAttendees
 import net.bashayer.eticket.tickets.models.Booking
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -70,7 +70,10 @@ class GenerateQrCodeActivity : BaseActivity(), TicketCallback {
             val encryptedString = EncryptionHelper.getInstance().encryptionString(serializeString).encryptMsg()
             val bitmap = QRCodeHelper.newInstance(this).setContent(encryptedString).setErrorCorrectionLevel(ErrorCorrectionLevel.Q).setMargin(2).qrcOde
 
-            QRCodes.add(AttendeeTicket(bitmap, eventModel.eventId.toString(), it.attendeName, eventModel.name, eventModel.description, eventModel.city, eventModel.eventDate))
+            var date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(eventModel.eventDate)
+            var formattedDate = SimpleDateFormat("dd/MM/yyyy, Ka").format(date)
+
+            QRCodes.add(AttendeeTicket(bitmap, eventModel.eventId.toString(), it.attendeName, eventModel.name, eventModel.description, eventModel.city, formattedDate))
         }
 
 //        attendees.attendees.forEach {

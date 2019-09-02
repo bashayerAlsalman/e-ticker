@@ -117,8 +117,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
         public void bind(NewEventModel eventModel) {
             this.name.setText(eventModel.name);
-            if (eventModel.eventImages != null && eventModel.eventImages.size() > 1) {
-                Glide.with(context).load(url + eventModel.eventImages.get(0).name).into(icon);
+            if (eventModel.eventImages != null && eventModel.eventImages.size() >= 1) {
+                Glide.with(context).load(url + eventModel.eventImages.get(0).file_uiid).into(icon);
             }
             type.setText(eventModel.description);
             city.setText(eventModel.city);

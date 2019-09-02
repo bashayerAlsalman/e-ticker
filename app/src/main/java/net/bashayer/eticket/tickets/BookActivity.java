@@ -4,28 +4,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
+
+import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import net.bashayer.eticket.R;
 import net.bashayer.eticket.common.BaseActivity;
+import net.bashayer.eticket.event.EventAdapter;
 import net.bashayer.eticket.network.BookService;
-import net.bashayer.eticket.network.EventService;
 import net.bashayer.eticket.network.UnsafeOkHttpClient;
 import net.bashayer.eticket.network.model.NewEventModel;
 import net.bashayer.eticket.payment.PaymentAactivity;
 import net.bashayer.eticket.tickets.models.BookedTickets;
 import net.bashayer.eticket.tickets.models.Booking;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.CompletableObserver;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -44,8 +42,12 @@ public class BookActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.attendeeEmail)
     TextInputEditText email;
 
+    @BindView(R.id.eventIcon)
+    AppCompatImageView eventIcon;
+
     public Booking booking;
     public NewEventModel eventModel;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +55,14 @@ public class BookActivity extends BaseActivity implements View.OnClickListener {
         Intent intent = getIntent();
         booking = (Booking) intent.getSerializableExtra("booking");
         eventModel = (NewEventModel) intent.getSerializableExtra("event");
+
+        getSupportActionBar().setTitle(eventModel.name);
         ButterKnife.bind(this);
+
+        if (eventModel.eventImages != null && eventModel.eventImages.size() >= 1) {
+            Glide.with(this).load(EventAdapter.url + eventModel.eventImages.get(0).file_uiid).into(eventIcon);
+        }
+
         book.setOnClickListener(this);
 
     }

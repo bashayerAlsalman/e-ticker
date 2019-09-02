@@ -25,7 +25,7 @@
             android:value="@string/google_maps_key" />
 
 
-        <activity android:name=".event.EventListActivity">
+        <activity android:name=".qr.scan.FirstActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

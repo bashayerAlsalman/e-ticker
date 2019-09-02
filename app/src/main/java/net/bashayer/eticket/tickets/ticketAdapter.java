@@ -1,29 +1,25 @@
 package net.bashayer.eticket.tickets;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
-import com.google.android.material.button.MaterialButton;
-
-import net.bashayer.eticket.R;
-import net.bashayer.eticket.qr.GenerateQrCodeActivity;
-import net.bashayer.eticket.tickets.models.BookedTickets;
-import net.bashayer.eticket.tickets.models.ticketModel;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.button.MaterialButton;
+
+import net.bashayer.eticket.R;
+import net.bashayer.eticket.tickets.models.ticketModel;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -34,17 +30,14 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
     public TicketCallback callback;
     public ArrayList<ticketModel> selected = new ArrayList<>();
 
-    int maxTickets = 5;
-    int minTickets = 0;
-    int total = 0;
-    double price;
-    String type;
-    public int totalVIP = 0;
-    public int totalP = 0;
-
 
     @BindView((R.id.addTickets))
     MaterialButton addTickets;
+
+
+    public  int totalVIP = 0;
+    public int totalP = 0;
+
 
     public ticketAdapter(Context context, List<ticketModel> ticketModelList) {
         this.context = context;
@@ -91,12 +84,17 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
         public AppCompatTextView ticketPriceValue;
         @BindView(R.id.ticketTypeValue)
         public AppCompatTextView ticketTypeValue;
-
         @BindView(R.id.ticketTotalValue)
         public AppCompatTextView ticketTotalValue;
 
         @BindView(R.id.root)
         CardView root;
+        int totalPriceVIP = 0;
+        int totalPriceP = 0;
+        int maxTickets = 5;
+        int minTickets = 0;
+        double price;
+        String type;
 
         public void bind(ticketModel ticketModel) {
             this.ticketTypeValue.setText(ticketModel.type);
@@ -123,12 +121,21 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
                     @Override
                     public void onValueChange(NumberPicker numberPicker, int i, int i1) {
                         Toast.makeText(context, "selected number " + numberPicker.getValue(), Toast.LENGTH_LONG);
-                        total = numberPicker.getValue() * (int) price;
-                        ticketTotalValue.setText(total + "");
-                        if (type.equals("VIP"))
+                        double totPrice = 0;
+                        if (type.equals("VIP")) {
                             totalVIP = numberPicker.getValue();
-                        if (type.equals("Platinum"))
+                            totalPriceVIP = numberPicker.getValue() * (int) price;
+                            totPrice = totalPriceVIP;
+                        }
+
+                        if (type.equals("Platinum")) {
                             totalP = numberPicker.getValue();
+                            totalPriceP = numberPicker.getValue() * (int) price;
+                            totPrice = totalPriceP;
+                        }
+
+                        ticketTotalValue.setText(totPrice + "");
+
                     }
 
 

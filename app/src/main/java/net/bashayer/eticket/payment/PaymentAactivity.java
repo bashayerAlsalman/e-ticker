@@ -7,11 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TableRow;
 import android.widget.TextView;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
@@ -28,10 +27,11 @@ import net.bashayer.eticket.tickets.models.Booking;
 
 import org.json.JSONException;
 
-import androidx.appcompat.app.AppCompatActivity;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 import static net.bashayer.eticket.event.EventListActivity.MY_PREFS_NAME;
 
@@ -67,6 +67,14 @@ public class PaymentAactivity extends AppCompatActivity implements View.OnClickL
     TextView allTicketPrice;
 
 
+    @BindView(R.id.vip)
+    TableRow vip;
+
+
+    @BindView(R.id.plat)
+    TableRow platunium;
+
+
     ArrayList<BookedTickets> bookedTickets = new ArrayList<>();
     ArrayList<BookedTickets> bookedTicketsVIP = new ArrayList<>();
     ArrayList<BookedTickets> bookedTicketsPlatinum = new ArrayList<>();
@@ -88,7 +96,7 @@ public class PaymentAactivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment);
+        setContentView(R.layout.activity_payment_new);
 
         ButterKnife.bind(this);
 
@@ -114,6 +122,13 @@ public class PaymentAactivity extends AppCompatActivity implements View.OnClickL
                 bookedTicketsPlatinum.add(bookedTicket);
                 platinumTotal += bookedTicket.getPrice();
             }
+        }
+        if (vipTotal > 0) {
+            vip.setVisibility(View.VISIBLE);
+        }
+
+        if (platinumTotal > 0) {
+            platunium.setVisibility(View.VISIBLE);
         }
 
         totalAmount = vipTotal + platinumTotal;

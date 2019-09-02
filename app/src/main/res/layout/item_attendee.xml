@@ -74,6 +74,7 @@
             android:id="@+id/ticketTotalValue"
             android:layout_width="135dp"
             android:layout_height="23dp"
+            android:text="0.0"
             app:layout_constraintBottom_toBottomOf="@+id/ticketTotal"
             app:layout_constraintStart_toEndOf="@+id/ticketTotal"
             app:layout_constraintTop_toTopOf="@+id/ticketTotal">

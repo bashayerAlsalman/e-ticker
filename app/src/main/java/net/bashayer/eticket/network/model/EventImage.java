@@ -16,5 +16,7 @@ public class EventImage implements Serializable {
     @SerializedName("Size")
     @Expose
     public Integer size;
-
+    @SerializedName("file_uuid")
+    @Expose
+    public String file_uiid;
 }

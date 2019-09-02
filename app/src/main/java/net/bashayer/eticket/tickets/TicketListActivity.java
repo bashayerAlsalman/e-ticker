@@ -58,8 +58,8 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_ticket_list);
 
         ButterKnife.bind(this);
-
         newEventModel = (NewEventModel) getIntent().getSerializableExtra("event");
+        getSupportActionBar().setTitle(newEventModel.name);
         initAdapter();
         loadMockData();
         addTickets.setOnClickListener(this);

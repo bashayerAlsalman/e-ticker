@@ -38,4 +38,5 @@
     <string name="submit_rate">Send rate</string>
     <string name="rate_this_event">Rate this event</string>
     <string name="comment">write comment</string>
+    <string name="pay">Pay</string>
 </resources>
